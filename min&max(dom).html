@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min & Max Leaderboard</title>
+    <style>
+        #leaderboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Min & Max Leaderboard</h1>
+    <div>
+        <label for="score">Enter Score:</label>
+        <input type="number" id="score" />
+        <button onclick="addToScore()">Add</button>
+        <button onclick="updateLeaderboard()">Enter</button>
+    </div>
+    <div>
+        <h3>Score:</h3>
+        <p id="currentScore"></p>
+    </div>
+    <div id="leaderboard">
+        <div>
+            <h3>Min:</h3>
+            <p id="minScore">999</p>
+        </div>
+        <div>
+            <h3>Max:</h3>
+            <p id="maxScore">0</p>
+        </div>
+    </div>
+
+    <script>
+        let currentScore = '';
+
+        function addToScore() {
+            const input = document.getElementById('score');
+            currentScore += input.value;
+            document.getElementById('currentScore').innerText = currentScore;
+            input.value = ''; // Clear the input field
+        }
+
+        function updateLeaderboard() {
+            const score = parseInt(currentScore);
+
+            if (!isNaN(score)) {
+                const minScore = parseInt(document.getElementById('minScore').innerText);
+                const maxScore = parseInt(document.getElementById('maxScore').innerText);
+
+                if (score < minScore) {
+                    document.getElementById('minScore').innerText = score;
+                }
+
+                if (score > maxScore) {
+                    document.getElementById('maxScore').innerText = score;
+                }
+
+                // Reset current score
+                currentScore = '';
+                document.getElementById('currentScore').innerText = '';
+            } else {
+                alert('Please enter a valid score.');
+            }
+        }
+    </script>
+</body>
+</html>
